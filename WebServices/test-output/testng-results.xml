@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="0" ignored="0" total="2" passed="2">
+  <reporter-output>
+  </reporter-output>
+  <suite name="Default suite" duration-ms="1859" started-at="2017-07-17T09:17:33Z" finished-at="2017-07-17T09:17:35Z">
+    <groups>
+    </groups>
+    <test name="Default test" duration-ms="1859" started-at="2017-07-17T09:17:33Z" finished-at="2017-07-17T09:17:35Z">
+      <class name="com.qainfotech.Basic">
+        <test-method status="PASS" signature="setURL()[pri:0, instance:com.qainfotech.Basic@2b98378d]" name="setURL" is-config="true" duration-ms="1762" started-at="2017-07-17T14:47:33Z" finished-at="2017-07-17T14:47:35Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setURL -->
+        <test-method status="PASS" signature="testForStatusCode()[pri:0, instance:com.qainfotech.Basic@2b98378d]" name="testForStatusCode" duration-ms="78" started-at="2017-07-17T14:47:35Z" finished-at="2017-07-17T14:47:35Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testForStatusCode -->
+        <test-method status="PASS" signature="testIsPlayerAdd()[pri:0, instance:com.qainfotech.Basic@2b98378d]" name="testIsPlayerAdd" duration-ms="0" started-at="2017-07-17T14:47:35Z" finished-at="2017-07-17T14:47:35Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testIsPlayerAdd -->
+      </class> <!-- com.qainfotech.Basic -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
+</testng-results>
