@@ -1,1 +1,5 @@
 /target/
+
+.classpath
+/test-output/
+.project

@@ -2,14 +2,19 @@ package com.qainfotech;
 
 public class Board {
 	
-	private int Id;
+	private long Id;
 
-	public int getId() {
+	public long getId() {
 		return Id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		Id = id;
+	}
+
+	@Override
+	public String toString() {
+		return "Board [Id=" + Id + "]";
 	}
 	
 

@@ -1,59 +1,75 @@
 package com.qainfotech;
+
 import static io.restassured.RestAssured.*;
 
+import org.json.JSONObject;
+import org.testng.Assert;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-import com.jayway.jsonpath.JsonPath;
-
-import io.restassured.RestAssured;
 
 
 public class Basic {
-      private String BASEURI="http://10.0.1.86/snl";
-      private String BASEPATH="/rest/v1";
-      private String response;
-      private Board board;
-     
-      
-      @BeforeClass
-      public void setURL(){
-    	  System.out.println("dkgetu4iofjsdfkl");
-    	  RestAssured.baseURI=BASEURI;
-    	  RestAssured.basePath=BASEPATH;
-    	  response= given().
-    			    when().
-    			       get("/board/new.json").
-    			    then(). 
-    			        assertThat().statusCode(200). 
-    			    extract(). 
-    			     body().asString();
-    	 
-    	  int id=JsonPath.read(response, "$.response.board.id");
-    	  board=new Board();
-    	  board.setId(id);
-    		System.out.println("id "+id);
-      }
-	
-      @Test
-	public void testForStatusCode(){
-    	  response= given().
-  			    when().
-  			       get("/board/"+board.getId()+".json").
-  			    then(). 
-  			        assertThat().statusCode(200). 
-  			    extract(). 
-  			     body().asString();
-		//System.out.println(response);
-    	  
-    	  System.out.println(" ideadkffkefek "+JsonPath.read(response, "$.response.board.id"));
+
+	private String response;
+	private  Board board;
+	private int playerId;
+	private RestCode restCode;
+	private String BASEURI = "http://10.0.1.86/snl";
+	private String BASEPATH = "/rest/v1/";
+
+	@BeforeClass
+	public void setURL() {
+		restCode = new RestCode(BASEURI, BASEPATH);
+		board = restCode.initializeBoard();
+		System.out.println(board);
+       
 		
-	
 	}
-      @Test
-     public void testIsPlayerAdd(){
-    	 System.out.println("heheehehehe");
-    	 System.out.println("3 :"+board.getId());
-      }
+     @Test
+	 public void getBoardDetailsFromService(){
+		System.out.println(restCode.getBoardDetailsFromService(8483l));
+	 }
+	@Test
+	public void testIsPlayerAdd() {
+		System.out.println("board : "+board);
+     int initalPlayerNo=restCode.getPlayerNumbers(board.getId());
+  
+  	 JSONObject jsObj=new JSONObject();
+   	 jsObj.put("board", board.getId());
+   	 JSONObject player=new JSONObject();
+   	 player.put("name", "player");
+   	 jsObj.put("player",player );
+		
+   	 restCode.addPlayer(jsObj);
+		
+     Assert.assertEquals(restCode.getPlayerNumbers(board.getId()), initalPlayerNo+1);
+	}
+  	
+  	@Test
+  	public void testMaxPlayer(){
+  		for (int playerIndex = 0; playerIndex < 4; playerIndex++) {
+			 JSONObject jsObj=new JSONObject();
+	    	 jsObj.put("board", board.getId());
+	    	 JSONObject player=new JSONObject();
+	    	 player.put("name", "player" + playerIndex);
+	    	 jsObj.put("player",player );
+			 
+	    	 restCode.addPlayer(jsObj);
+
+		}
+  	}
+  	
+  	@AfterClass
+  	public void deleteBoard(){
+  		
+  		restCode.deleteBoard(board.getId());
+  		board=null;
+  		
+  	}
+  	
+  
 }
