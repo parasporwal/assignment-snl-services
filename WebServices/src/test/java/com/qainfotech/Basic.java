@@ -2,6 +2,7 @@ package com.qainfotech;
 
 import static io.restassured.RestAssured.*;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
@@ -51,7 +52,7 @@ public class Basic {
   	
   	@Test
   	public void testMaxPlayer(){
-  		for (int playerIndex = 0; playerIndex < 4; playerIndex++) {
+  		for (int playerIndex = 0; playerIndex <4; playerIndex++) {
 			 JSONObject jsObj=new JSONObject();
 	    	 jsObj.put("board", board.getId());
 	    	 JSONObject player=new JSONObject();
@@ -61,8 +62,22 @@ public class Basic {
 	    	 restCode.addPlayer(jsObj);
 
 		}
+  		
+  		System.out.println();
   	}
-  	
+  	@Test
+  	public void testIsPlayerDeleted(){
+  		testMaxPlayer();
+  		JSONArray players=restCode.getPlayers();
+  		System.out.println("sdkfejkfwjekfj");
+  		for(int playerNo=0;playerNo<players.length();playerNo++){
+
+  			JSONObject player=players.getJSONObject(playerNo);
+  			//System.out.println("id :"+player.getLong("id"));
+  			restCode.deletePlayer(player.getLong("id"));
+  		}
+  		Assert.assertEquals(restCode.getPlayerNumbers(board.getId()), 0);
+  	}
   	@AfterClass
   	public void deleteBoard(){
   		

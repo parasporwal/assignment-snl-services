@@ -3,6 +3,7 @@ package com.qainfotech;
 import static io.restassured.RestAssured.get;
 import static io.restassured.RestAssured.given;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.jayway.jsonpath.JsonPath;
@@ -15,7 +16,11 @@ public class RestCode {
 	
      private String response;
      private static Board board;
+     private String players;
      private ValidatableResponse res;
+     private String boardDetail;
+     private String status;
+     
 	
 	 public RestCode(String baseUri, String basePath){
 		RestAssured.baseURI=baseUri;
@@ -87,6 +92,31 @@ public class RestCode {
 				assertThat().statusCode(200);
 		
 		
+	}
+
+
+
+	public JSONArray getPlayers() {
+		// TODO Auto-generated method stub
+		
+		response=getBoardDetailsFromService(board.getId());
+		System.out.println("KMKJK<<>"+response);
+		JSONArray players=new JSONArray(JsonPath.read(response, "$.response.board.players").toString());
+		return players;
+	}
+
+
+
+	public void deletePlayer(long id) {
+		// TODO Auto-generated method stub
+		status=given(). 
+		when(). 
+		delete("/player/"+id+".json"). 
+		then(). 
+		assertThat().statusCode(200). 
+		extract().body().asString();
+		response=getBoardDetailsFromService(board.getId());
+		System.out.println("Board Details After Deleting Player"+id+response);
 	}
 	
 	
