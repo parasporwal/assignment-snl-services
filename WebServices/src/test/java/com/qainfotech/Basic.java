@@ -30,10 +30,7 @@ public class Basic {
        
 		
 	}
-     @Test
-	 public void getBoardDetailsFromService(){
-		System.out.println(restCode.getBoardDetailsFromService(8483l));
-	 }
+    
 	@Test
 	public void testIsPlayerAdd() {
 		System.out.println("board : "+board);
@@ -56,14 +53,15 @@ public class Basic {
 			 JSONObject jsObj=new JSONObject();
 	    	 jsObj.put("board", board.getId());
 	    	 JSONObject player=new JSONObject();
-	    	 player.put("name", "player" + playerIndex);
+	    	 player.put("name", "player" );
 	    	 jsObj.put("player",player );
 			 
 	    	 restCode.addPlayer(jsObj);
 
 		}
   		
-  		System.out.println();
+  		/*System.out.println(restCode.getPlayerNumbers(board.getId()));
+  		System.out.println("Names: "+restCode.getPlayerNames());*/
   	}
   	@Test
   	public void testIsPlayerDeleted(){
